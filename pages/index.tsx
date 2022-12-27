@@ -9,6 +9,7 @@ import {
   getDocs,
   doc,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 
 export default function Home() {
@@ -49,6 +50,13 @@ export default function Home() {
     });
   };
 
+  const deleteItem = (id: any) => {
+    let dataFild = doc(database, "items", id);
+    deleteDoc(dataFild).then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
     <>
       <div>
@@ -76,6 +84,7 @@ export default function Home() {
             <p>Name:{item.name}</p>
             <p>age: {item.age}</p>
             <button onClick={() => update(item.id)}>Update</button>
+            <button onClick={() => deleteItem(item.id)}>Delete</button>
           </div>
         ))}
       </div>
